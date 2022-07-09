@@ -280,7 +280,9 @@
         // Set zoom to minimum zoom
         [self setMaxMinZoomScalesForCurrentBounds];
         [self setNeedsLayout];
-    }
+    } else if (image) {
+		_photoImageView.image = image;
+	}
 }
 
 #pragma mark - Setter
