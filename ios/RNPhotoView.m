@@ -304,6 +304,9 @@
                 UIImage *image = RCTImageFromLocalAssetURL(imageURL);
                 if (image) { // if local image
                     [self setImage:image];
+		    [self setMaxMinZoomScalesForCurrentBounds];
+
+					
                     if (_onPhotoViewerLoad) {
                         _onPhotoViewerLoad(nil);
                     }
@@ -355,6 +358,7 @@
                                                 if (image) {
                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                         [weakSelf setImage:image];
+							[weakSelf setMaxMinZoomScalesForCurrentBounds];
                                                     });
                                                     if (_onPhotoViewerLoad) {
                                                         _onPhotoViewerLoad(nil);
