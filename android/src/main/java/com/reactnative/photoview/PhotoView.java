@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
@@ -21,6 +21,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.common.SystemClock;
 import com.facebook.react.modules.fresco.ReactNetworkImageRequest;
 import com.facebook.react.uimanager.UIManagerModule;
@@ -116,9 +117,12 @@ public class PhotoView extends PhotoDraweeView {
                         @Nullable final ImageInfo imageInfo,
                         @Nullable Animatable animatable) {
                     if (imageInfo != null) {
-                        eventDispatcher.dispatchEvent(
-                                new ImageEvent(getId(), ImageEvent.ON_LOAD)
-                        );
+                        WritableMap map = new WritableNativeMap();
+                        map.putDouble("width", imageInfo.getWidth());
+                        map.putDouble("height", imageInfo.getHeight());
+                        ImageEvent event = new ImageEvent(getId(), ImageEvent.ON_LOAD);
+                        event.setExtras(map);
+                        eventDispatcher.dispatchEvent(event);
                         eventDispatcher.dispatchEvent(
                                 new ImageEvent(getId(), ImageEvent.ON_LOAD_END)
                         );
