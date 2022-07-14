@@ -308,7 +308,10 @@
 
 					
                     if (_onPhotoViewerLoad) {
-                        _onPhotoViewerLoad(nil);
+						_onPhotoViewerLoad(@{
+							@"width": @((double)image.size.width),
+							@"height": @((double)image.size.height),
+						});
                     }
                     if (_onPhotoViewerLoadEnd) {
                         _onPhotoViewerLoadEnd(nil);
@@ -361,7 +364,10 @@
 							[weakSelf setMaxMinZoomScalesForCurrentBounds];
                                                     });
                                                     if (_onPhotoViewerLoad) {
-                                                        _onPhotoViewerLoad(nil);
+														_onPhotoViewerLoad(@{
+															@"width": @((double)image.size.width),
+															@"height": @((double)image.size.height),
+														});
                                                     }
                                                 } else {
                                                     if (_onPhotoViewerError) {
